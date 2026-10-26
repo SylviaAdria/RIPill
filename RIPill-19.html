@@ -1,0 +1,2163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RIPill</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Parisienne&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+        }
+
+        :root {
+            --bg-gradient-start: #DDD9D3;
+            --bg-gradient-mid: #D3CFC8;
+            --bg-gradient-end: #CAC5BD;
+            --bg-solid: #D8D4CE;
+            --container-bg: #E5E1DB;
+            --container-border: #D0CBC4;
+            --container-shadow: rgba(130, 120, 110, 0.25);
+            --card-bg: #DCD7D0;
+            --card-border: #CFC9C1;
+            --card-hover-bg: #D6D1C9;
+            --day-number-bg: #E2DED7;
+            --day-number-color: #5E544A;
+            --day-number-border: #CFC9C1;
+            --half-bg: #DCD7D0;
+            --half-border: #CFC9C1;
+            --half-hover-bg: #D0CBC3;
+            --half-text: #8A8075;
+            --heart-empty: #A0988D;
+            --heart-taken: #3A4A58;
+            --taken-bg: #B8C8D6;
+            --taken-text: #3A4A58;
+            --all-taken-bg: #E6D0C4;
+            --all-taken-text: #6B5A4E;
+            --all-taken-border: #E6D0C4;
+            --today-border: #B0BEC9;
+            --today-shadow: rgba(160, 180, 196, 0.18);
+            --text-primary: #6B6158;
+            --text-secondary: #8A8075;
+            --text-muted: #9A9086;
+            --text-strong: #5E544A;
+            --stats-strong: #5E544A;
+            --percentage-strong: #B89A88;
+            --nav-border: #C5BFB7;
+            --nav-bg: rgba(255, 255, 255, 0.35);
+            --nav-color: #7A7065;
+            --nav-hover-bg: rgba(255, 255, 255, 0.6);
+            --nav-hover-border: #B0A89E;
+            --nav-hover-color: #5E544A;
+            --legend-dot-bg: #DCD7D0;
+            --legend-dot-border: #CAC4BB;
+            --legend-dot-blue: #B8C8D6;
+            --legend-dot-blue-border: #A2B4C4;
+            --legend-dot-pink: #E6D0C4;
+            --legend-dot-pink-border: #D8BCAE;
+            --empty-bg: #E8E4DE;
+            --empty-border: #DCD7D0;
+            --empty-text: #B8B0A6;
+            --weekday-color: #8A8075;
+            --noise-opacity: 0.2;
+            --brand-color: #6B6158;
+            --credit-color: #A89F94;
+            --float-color: #8A8075;
+            --float-shadow: rgba(0, 0, 0, 0.12);
+            --particle-color: #A89F94;
+            --clock-color: #A89F94;
+        }
+
+        body.dark-theme {
+            --bg-gradient-start: #2b2f36;
+            --bg-gradient-mid: #272b31;
+            --bg-gradient-end: #23272c;
+            --bg-solid: #2b2f36;
+            --container-bg: #353a42;
+            --container-border: #454b55;
+            --container-shadow: rgba(0, 0, 0, 0.5);
+            --card-bg: #3c424b;
+            --card-border: #4a505a;
+            --card-hover-bg: #434a54;
+            --day-number-bg: #333840;
+            --day-number-color: #b8cde3;
+            --day-number-border: #4a505a;
+            --half-bg: #3c424b;
+            --half-border: #4a505a;
+            --half-hover-bg: #4a525e;
+            --half-text: #7e92a8;
+            --heart-empty: #6b7f99;
+            --heart-taken: #1a232e;
+            --taken-bg: #6b7f8f;
+            --taken-text: #1a232e;
+            --all-taken-bg: #b89aa2;
+            --all-taken-text: #2a2e35;
+            --all-taken-border: #b89aa2;
+            --today-border: #5a6b7d;
+            --today-shadow: rgba(126, 156, 181, 0.12);
+            --text-primary: #a2b6cc;
+            --text-secondary: #8a9bb0;
+            --text-muted: #7e92a8;
+            --text-strong: #c2d4e8;
+            --stats-strong: #c2d4e8;
+            --percentage-strong: #b89aa2;
+            --nav-border: #4f5661;
+            --nav-bg: #353a42;
+            --nav-color: #a6b8cc;
+            --nav-hover-bg: #404650;
+            --nav-hover-border: #7a8fa6;
+            --nav-hover-color: #c2d4e8;
+            --legend-dot-bg: #3f4550;
+            --legend-dot-border: #4f5661;
+            --legend-dot-blue: #6b7f8f;
+            --legend-dot-blue-border: #7e92a8;
+            --legend-dot-pink: #b89aa2;
+            --legend-dot-pink-border: #c8aab2;
+            --empty-bg: #2f343c;
+            --empty-border: #434a54;
+            --empty-text: #5a6572;
+            --weekday-color: #8a9bb0;
+            --noise-opacity: 0.3;
+            --brand-color: #c2d4e8;
+            --credit-color: #7e92a8;
+            --float-color: #7e92a8;
+            --float-shadow: rgba(0, 0, 0, 0.3);
+            --particle-color: #7e92a8;
+            --clock-color: #7e92a8;
+        }
+
+        body {
+            background-color: var(--bg-solid);
+            background-image: linear-gradient(145deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 60%, var(--bg-gradient-end) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            transition: background-color 0.5s, color 0.5s;
+            position: relative;
+        }
+
+        .bg-brand {
+            position: fixed;
+            top: 28px;
+            left: 32px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .bg-brand h1 {
+            font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: var(--brand-color);
+            letter-spacing: -0.5px;
+            line-height: 1;
+            transition: color 0.5s;
+        }
+
+        .bg-credit {
+            position: fixed;
+            top: 34px;
+            right: 32px;
+            z-index: 2;
+            pointer-events: none;
+            font-family: 'Quicksand', -apple-system, sans-serif;
+            font-size: 0.9rem;
+            color: var(--credit-color);
+            transition: color 0.5s;
+            text-align: right;
+        }
+
+        .bg-credit .by {
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .bg-credit .sylvia {
+            font-family: 'Parisienne', 'Segoe Script', cursive;
+            font-size: 1.35rem;
+            margin-left: 3px;
+            letter-spacing: 0.2px;
+        }
+
+        .clock-display {
+            position: fixed;
+            bottom: 40px;
+            left: 32px;
+            z-index: 2;
+            pointer-events: none;
+            font-family: 'Quicksand', -apple-system, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--clock-color);
+            letter-spacing: 0.6px;
+            transition: color 0.5s;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .app-container {
+            max-width: 700px;
+            width: 100%;
+            background: var(--container-bg);
+            border-radius: 36px;
+            box-shadow: 0 25px 45px -12px var(--container-shadow), 0 10px 25px -8px rgba(130, 120, 110, 0.15);
+            padding: 28px 20px 24px 20px;
+            border: 1px solid var(--container-border);
+            position: relative;
+            overflow: hidden;
+            transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
+            z-index: 3;
+            margin-top: 60px;
+        }
+
+        .app-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: var(--noise-opacity);
+            z-index: 0;
+            transition: opacity 0.5s;
+        }
+
+        .app-container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding: 0 6px;
+            flex-wrap: wrap;
+            gap: 10px;
+            min-height: 50px;
+            position: relative;
+        }
+
+        .month-nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+            padding: 4px 8px;
+            border-radius: 12px;
+            transition: box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .month-nav:active {
+            opacity: 0.7;
+        }
+
+        .month-year {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .month-roman {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+            transition: color 0.5s, opacity 0.3s, transform 0.3s;
+        }
+
+        .month-roman.fade-out {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .month-roman.fade-in {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .year-num {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-left: 4px;
+            transition: color 0.5s;
+        }
+
+        .legend {
+            display: flex;
+            gap: 16px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+            transition: color 0.5s;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 14px;
+            background-color: var(--legend-dot-bg);
+            border: 1px solid var(--legend-dot-border);
+            transition: background 0.5s, border-color 0.5s;
+        }
+
+        .legend-dot.blue {
+            background-color: var(--legend-dot-blue);
+            border-color: var(--legend-dot-blue-border);
+        }
+
+        .legend-dot.pink {
+            background-color: var(--legend-dot-pink);
+            border-color: var(--legend-dot-pink-border);
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--weekday-color);
+            letter-spacing: 0.3px;
+            padding: 0 2px;
+            transition: color 0.5s;
+        }
+
+        /* 关键修复：手机端日历容器不裁切，靠 padding 保证居中 */
+        .calendar-wrapper {
+            overflow: hidden;
+            margin-bottom: 20px;
+            padding: 0 2px;
+            user-select: none;
+            -webkit-user-select: none;
+            position: relative;
+            width: 100%;
+            /* 防止 iOS 上 flex 子元素收缩 */
+            flex-shrink: 0;
+        }
+
+        .calendar-track {
+            display: flex;
+            gap: 20px;
+            position: relative;
+            will-change: transform;
+            touch-action: pan-y;
+            width: 100%;
+            /* 确保 flex 子项不参与容器宽度计算 */
+            min-width: 0;
+        }
+
+        .calendar-page {
+            flex: 0 0 100%;
+            min-width: 0;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            grid-template-rows: repeat(6, auto);
+            align-content: start;
+            /* 防止网格子项撑破 */
+            overflow: visible;
+        }
+
+        .day-card {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(130, 120, 110, 0.08);
+            border: 1px solid var(--card-border);
+            aspect-ratio: 0.9 / 1.1;
+            min-width: 0;
+            transition: box-shadow 0.15s, border-color 0.15s, background 0.5s;
+        }
+
+        .day-card:hover {
+            box-shadow: 0 6px 14px rgba(130, 120, 110, 0.12);
+            background: var(--card-hover-bg);
+        }
+
+        .day-number {
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--day-number-color);
+            padding: 7px 0 3px 0;
+            background: var(--day-number-bg);
+            border-bottom: 1px solid var(--day-number-border);
+            letter-spacing: 0.2px;
+            transition: background 0.5s, color 0.5s, border-color 0.5s;
+            cursor: pointer;
+        }
+
+        .day-card.all-taken .day-number {
+            background: var(--all-taken-bg);
+            color: var(--all-taken-text);
+            border-bottom-color: var(--all-taken-border);
+        }
+
+        .half {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--half-text);
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            background-color: var(--half-bg);
+            border-bottom: 1px solid var(--half-border);
+            position: relative;
+        }
+
+        .half:last-child {
+            border-bottom: none;
+        }
+
+        .half.taken {
+            background-color: var(--taken-bg);
+            color: var(--taken-text);
+        }
+
+        .heart-icon {
+            font-size: 1rem;
+            line-height: 1;
+            display: inline-block;
+            font-weight: 200;
+            -webkit-text-stroke: 0.15px currentColor;
+            letter-spacing: 0;
+        }
+
+        .half.taken .heart-icon {
+            color: var(--heart-taken);
+        }
+
+        .half:not(.taken) .heart-icon {
+            color: var(--heart-empty);
+            opacity: 0.8;
+        }
+
+        .day-card.empty {
+            opacity: 0.2;
+            pointer-events: none;
+            background: var(--empty-bg);
+            border: 1px solid var(--empty-border);
+            box-shadow: none;
+        }
+
+        .day-card.empty .day-number,
+        .day-card.empty .half {
+            color: var(--empty-text);
+            background: var(--empty-bg);
+        }
+
+        .day-card.today .day-number {
+            color: var(--text-strong);
+            font-weight: 700;
+        }
+        .day-card.today {
+            border-color: var(--card-border);
+            box-shadow: 0 2px 6px rgba(130, 120, 110, 0.08);
+        }
+
+        .half:hover:not(.taken) {
+            background-color: var(--half-hover-bg);
+        }
+
+        .half:active {
+            transform: scale(0.97);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding: 0 8px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stats {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.3px;
+            transition: color 0.5s;
+        }
+
+        .stats strong {
+            color: var(--stats-strong);
+            font-weight: 600;
+            transition: color 0.5s;
+        }
+
+        .percentage {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.3px;
+            transition: color 0.5s;
+        }
+
+        .percentage strong {
+            color: var(--percentage-strong);
+            font-weight: 600;
+            transition: color 0.5s;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 1px solid var(--nav-border);
+            background: var(--container-bg);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transition: background 0.5s, border-color 0.5s, color 0.5s, box-shadow 0.5s, transform 0.15s;
+            z-index: 1000;
+            padding: 0;
+            line-height: 1;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.06);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.94);
+        }
+
+        .theme-toggle svg {
+            width: 26px;
+            height: 26px;
+            stroke: currentColor;
+            stroke-width: 1.4;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            display: block;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .theme-ripple {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0.9;
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.4, 1), opacity 0.6s ease;
+        }
+
+        .float-month {
+            position: fixed;
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: var(--float-color);
+            cursor: grab;
+            user-select: none;
+            -webkit-user-select: none;
+            z-index: 100;
+            pointer-events: auto;
+            transition: color 0.3s, text-shadow 0.3s, opacity 0.4s, transform 0.4s;
+            will-change: transform, opacity;
+            white-space: nowrap;
+            padding: 18px 22px;
+            margin: -18px -22px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: none;
+        }
+
+        .float-month.hovered {
+            text-shadow: 0 4px 16px var(--float-shadow);
+            color: var(--text-primary);
+            cursor: grabbing;
+        }
+
+        .float-month.dragging {
+            cursor: grabbing;
+            z-index: 200;
+        }
+
+        .float-month.disappearing {
+            opacity: 0;
+            transform: scale(0.7);
+        }
+
+        .particle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 150;
+            will-change: transform, opacity;
+        }
+
+        /* ========== 手机端专项 ========== */
+        @media (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+
+            .bg-brand {
+                top: 16px;
+                left: 18px;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+
+            .bg-brand h1 {
+                font-size: 1.7rem;
+            }
+
+            .bg-credit {
+                position: static;
+                pointer-events: none;
+                text-align: left;
+                font-size: 0.72rem;
+                margin-top: 2px;
+            }
+
+            .bg-credit .sylvia {
+                font-size: 1.05rem;
+            }
+
+            .theme-toggle {
+                position: fixed;
+                top: 16px;
+                right: 18px;
+                bottom: auto;
+                width: 46px;
+                height: 46px;
+            }
+
+            .theme-toggle svg {
+                width: 21px;
+                height: 21px;
+            }
+
+            .clock-display {
+                bottom: 24px;
+                left: 18px;
+                font-size: 0.7rem;
+            }
+
+            .app-container {
+                padding: 22px 8px 20px 8px;
+                border-radius: 26px;
+                margin-top: 64px;
+                width: 100%;
+                max-width: 100%;
+                /* 确保不产生水平滚动 */
+                overflow: hidden;
+            }
+
+            .header {
+                margin-bottom: 14px;
+                padding: 0 4px;
+                min-height: 44px;
+            }
+
+            .month-roman {
+                font-size: 1.75rem;
+            }
+
+            .year-num {
+                font-size: 0.82rem;
+            }
+
+            .legend {
+                gap: 8px;
+                font-size: 0.62rem;
+            }
+
+            .legend-dot {
+                width: 9px;
+                height: 9px;
+            }
+
+            .weekdays {
+                font-size: 0.75rem;
+                margin-bottom: 8px;
+                padding: 0 1px;
+            }
+
+            .calendar-page {
+                gap: 4px;
+            }
+
+            .calendar-track {
+                gap: 10px;
+            }
+
+            /* 关键：手机端给 wrapper 留出少量内边距，保证网格整体居中 */
+            .calendar-wrapper {
+                padding: 0;
+                margin-left: 0;
+                margin-right: 0;
+                /* 允许内容可见，防止左侧被裁 */
+                overflow: hidden;
+            }
+
+            .calendar-page {
+                /* 左侧第一列不贴边 */
+                padding-left: 1px;
+                padding-right: 1px;
+            }
+
+            .day-card {
+                border-radius: 10px;
+            }
+
+            .day-number {
+                font-size: 0.74rem;
+                font-weight: 500;
+                padding: 4px 0 2px;
+                letter-spacing: 0.1px;
+            }
+
+            .half {
+                font-size: 0.85rem;
+            }
+
+            .heart-icon {
+                font-size: 0.74rem;
+                font-weight: 200;
+                -webkit-text-stroke: 0.08px currentColor;
+            }
+
+            .actions {
+                margin-top: 8px;
+                padding: 0 4px;
+            }
+
+            .stats, .percentage {
+                font-size: 0.72rem;
+            }
+
+            .float-month {
+                font-size: 1.7rem;
+                padding: 14px 18px;
+                margin: -14px -18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-brand">
+        <h1>RIPill</h1>
+        <div class="bg-credit">
+            <span class="by">by</span><span class="sylvia">Sylvia</span>
+        </div>
+    </div>
+
+    <div class="clock-display" id="clockDisplay">----.--.-- --:--</div>
+
+    <div class="app-container">
+        <div class="header">
+            <div class="month-nav" id="monthNav">
+                <div class="month-year" id="monthYearDisplay">
+                    <span class="month-roman" id="monthRoman"></span>
+                    <span class="year-num" id="yearNum"></span>
+                </div>
+            </div>
+            <div class="legend">
+                <div class="legend-item"><span class="legend-dot"></span> 未服</div>
+                <div class="legend-item"><span class="legend-dot blue"></span> 已服</div>
+                <div class="legend-item"><span class="legend-dot pink"></span> 每日</div>
+            </div>
+        </div>
+
+        <div class="weekdays">
+            <div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div>
+        </div>
+
+        <div class="calendar-wrapper" id="calendarWrapper">
+            <div class="calendar-track" id="calendarTrack"></div>
+        </div>
+
+        <div class="actions">
+            <div class="stats" id="statsDisplay"></div>
+            <div class="percentage" id="percentageDisplay"></div>
+        </div>
+    </div>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="切换昼夜">
+        <svg id="themeIcon" viewBox="0 0 24 24"></svg>
+    </button>
+
+    <script>
+        (function() {
+            // ========== 北京时间时钟 ==========
+            const clockDisplay = document.getElementById('clockDisplay');
+            let clockOffset = 0;
+            let clockTimer = null;
+
+            function formatBeijingTime(date) {
+                const utc = date.getTime() + date.getTimezoneOffset() * 60000;
+                const beijing = new Date(utc + 8 * 3600000);
+                const y = beijing.getFullYear();
+                const m = String(beijing.getMonth() + 1).padStart(2, '0');
+                const d = String(beijing.getDate()).padStart(2, '0');
+                const h = String(beijing.getHours()).padStart(2, '0');
+                const min = String(beijing.getMinutes()).padStart(2, '0');
+                return `${y}.${m}.${d} ${h}:${min}`;
+            }
+
+            function updateClockDisplay() {
+                const now = new Date(Date.now() + clockOffset);
+                clockDisplay.textContent = formatBeijingTime(now);
+            }
+
+            function fetchNetworkTime() {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 4000);
+                fetch('https://worldtimeapi.org/api/timezone/Etc/UTC', { signal: controller.signal })
+                    .then(res => {
+                        clearTimeout(timeout);
+                        if (!res.ok) throw new Error('network error');
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (data && data.unixtime) {
+                            clockOffset = data.unixtime * 1000 - Date.now();
+                        }
+                    })
+                    .catch(() => { clockOffset = 0; })
+                    .finally(() => { updateClockDisplay(); });
+            }
+
+            function startClock() {
+                fetchNetworkTime();
+                updateClockDisplay();
+                if (clockTimer) clearInterval(clockTimer);
+                clockTimer = setInterval(updateClockDisplay, 1000);
+                setInterval(fetchNetworkTime, 30000);
+            }
+
+            startClock();
+
+            // ========== 主题 ==========
+            const THEME_KEY = 'medication_theme';
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+
+            const sunSVG = `
+                <circle cx="12" cy="12" r="4"></circle>
+                <line x1="12" y1="2" x2="12" y2="4"></line>
+                <line x1="12" y1="20" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="4" y2="12"></line>
+                <line x1="20" y1="12" x2="22" y2="12"></line>
+                <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line>
+                <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line>
+                <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"></line>
+                <line x1="17.66" y1="6.34" x2="19.07" y2="4.93"></line>
+            `;
+            const moonSVG = `
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            `;
+
+            function applyTheme(theme) {
+                const isDark = theme === 'dark';
+                if (isDark) {
+                    body.classList.add('dark-theme');
+                    themeIcon.innerHTML = moonSVG;
+                } else {
+                    body.classList.remove('dark-theme');
+                    themeIcon.innerHTML = sunSVG;
+                }
+                localStorage.setItem(THEME_KEY, theme);
+            }
+
+            function loadTheme() {
+                const saved = localStorage.getItem(THEME_KEY);
+                applyTheme(saved === 'dark' ? 'dark' : 'light');
+            }
+
+            function getThemeColor(isDark) {
+                return isDark ? '#2b2f36' : '#D8D4CE';
+            }
+
+            function rippleTransition(targetIsDark, originX, originY) {
+                const ripple = document.createElement('div');
+                ripple.className = 'theme-ripple';
+                ripple.style.background = getThemeColor(targetIsDark);
+                document.body.appendChild(ripple);
+
+                const maxDist = Math.hypot(
+                    Math.max(originX, window.innerWidth - originX),
+                    Math.max(originY, window.innerHeight - originY)
+                );
+                const radius = maxDist * 2;
+
+                ripple.style.width = radius * 2 + 'px';
+                ripple.style.height = radius * 2 + 'px';
+                ripple.style.left = originX + 'px';
+                ripple.style.top = originY + 'px';
+
+                ripple.offsetWidth;
+                requestAnimationFrame(() => {
+                    ripple.style.transform = 'translate(-50%, -50%) scale(1)';
+                    ripple.style.opacity = '0';
+                });
+
+                setTimeout(() => ripple.remove(), 650);
+            }
+
+            themeToggle.addEventListener('click', () => {
+                const rect = themeToggle.getBoundingClientRect();
+                const originX = rect.left + rect.width / 2;
+                const originY = rect.top + rect.height / 2;
+                const isCurrentlyDark = body.classList.contains('dark-theme');
+
+                rippleTransition(!isCurrentlyDark, originX, originY);
+
+                setTimeout(() => {
+                    applyTheme(isCurrentlyDark ? 'light' : 'dark');
+                }, 50);
+            });
+
+            loadTheme();
+
+            // ========== 日历数据 ==========
+            const today = new Date();
+            let currentYear = today.getFullYear();
+            let currentMonth = today.getMonth();
+
+            const calendarTrack = document.getElementById('calendarTrack');
+            const calendarWrapper = document.getElementById('calendarWrapper');
+            const monthNav = document.getElementById('monthNav');
+            const statsDisplay = document.getElementById('statsDisplay');
+            const percentageDisplay = document.getElementById('percentageDisplay');
+            const monthRomanEl = document.getElementById('monthRoman');
+            const yearNumEl = document.getElementById('yearNum');
+
+            const romanMonths = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+
+            function getDaysInMonth(year, month) {
+                return new Date(year, month + 1, 0).getDate();
+            }
+
+            function getFirstWeekdayMondayBased(year, month) {
+                const firstDay = new Date(year, month, 1);
+                const dayOfWeek = firstDay.getDay();
+                return dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+            }
+
+            function getStorageKey(year, month) {
+                return `medication_${year}_${month}`;
+            }
+
+            function loadMonthData(year, month) {
+                const key = getStorageKey(year, month);
+                const stored = localStorage.getItem(key);
+                const daysInMonth = getDaysInMonth(year, month);
+                if (stored) {
+                    try {
+                        const parsed = JSON.parse(stored);
+                        if (Array.isArray(parsed) && parsed.length === daysInMonth) {
+                            return parsed;
+                        }
+                    } catch (e) {}
+                }
+                return Array.from({ length: daysInMonth }, () => ({ morning: false, evening: false }));
+            }
+
+            function saveMonthData(year, month, data) {
+                localStorage.setItem(getStorageKey(year, month), JSON.stringify(data));
+            }
+
+            let currentMonthData = [];
+
+            function loadCurrentMonthData() {
+                currentMonthData = loadMonthData(currentYear, currentMonth);
+            }
+
+            function saveCurrentMonthData() {
+                saveMonthData(currentYear, currentMonth, currentMonthData);
+            }
+
+            function updateHeader() {
+                monthRomanEl.textContent = romanMonths[currentMonth];
+                yearNumEl.textContent = currentYear;
+            }
+
+            function buildMonthPage(year, month, isCurrent) {
+                const daysInMonth = getDaysInMonth(year, month);
+                const firstWeekday = getFirstWeekdayMondayBased(year, month);
+                const data = isCurrent ? currentMonthData : loadMonthData(year, month);
+
+                const page = document.createElement('div');
+                page.className = 'calendar-page';
+
+                const todayDate = new Date();
+                const isTodayMonth = (todayDate.getFullYear() === year && todayDate.getMonth() === month);
+                const todayDay = todayDate.getDate();
+
+                for (let i = 0; i < firstWeekday; i++) {
+                    const emptyCard = document.createElement('div');
+                    emptyCard.className = 'day-card empty';
+                    emptyCard.innerHTML = `<div class="day-number"></div><div class="half"></div><div class="half"></div>`;
+                    page.appendChild(emptyCard);
+                }
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayIndex = day - 1;
+                    const d = data[dayIndex] || { morning: false, evening: false };
+
+                    const card = document.createElement('div');
+                    card.className = 'day-card';
+                    if (isCurrent && isTodayMonth && day === todayDay) card.classList.add('today');
+                    if (d.morning && d.evening) card.classList.add('all-taken');
+
+                    const numberDiv = document.createElement('div');
+                    numberDiv.className = 'day-number';
+                    numberDiv.textContent = day;
+                    numberDiv.dataset.day = dayIndex;
+                    numberDiv.dataset.toggleAll = 'true';
+
+                    const morningHalf = document.createElement('div');
+                    morningHalf.className = 'half' + (d.morning ? ' taken' : '');
+                    morningHalf.dataset.day = dayIndex;
+                    morningHalf.dataset.period = 'morning';
+                    morningHalf.innerHTML = '<span class="heart-icon">♡</span>';
+
+                    const eveningHalf = document.createElement('div');
+                    eveningHalf.className = 'half' + (d.evening ? ' taken' : '');
+                    eveningHalf.dataset.day = dayIndex;
+                    eveningHalf.dataset.period = 'evening';
+                    eveningHalf.innerHTML = '<span class="heart-icon">♡</span>';
+
+                    card.appendChild(numberDiv);
+                    card.appendChild(morningHalf);
+                    card.appendChild(eveningHalf);
+                    page.appendChild(card);
+                }
+
+                const currentCards = page.children.length;
+                const totalNeeded = 42;
+                for (let i = currentCards; i < totalNeeded; i++) {
+                    const emptyCard = document.createElement('div');
+                    emptyCard.className = 'day-card empty';
+                    emptyCard.innerHTML = `<div class="day-number"></div><div class="half"></div><div class="half"></div>`;
+                    page.appendChild(emptyCard);
+                }
+
+                return page;
+            }
+
+            function updateStats(data, daysInMonth) {
+                let totalTakenSlots = 0;
+                for (let i = 0; i < daysInMonth; i++) {
+                    if (data[i].morning) totalTakenSlots++;
+                    if (data[i].evening) totalTakenSlots++;
+                }
+                const totalSlots = daysInMonth * 2;
+                const takenPills = totalTakenSlots * 2;
+                const percentage = totalSlots > 0 ? Math.round((totalTakenSlots / totalSlots) * 100) : 0;
+                statsDisplay.innerHTML = `已服用 <strong>${takenPills}</strong>`;
+                percentageDisplay.innerHTML = `本月进度 <strong>${percentage}%</strong>`;
+            }
+
+            let prevYear, prevMonth, nextYear, nextMonth;
+            function calcAdjacentMonths() {
+                prevYear = currentYear; prevMonth = currentMonth - 1;
+                if (prevMonth < 0) { prevMonth = 11; prevYear--; }
+                nextYear = currentYear; nextMonth = currentMonth + 1;
+                if (nextMonth > 11) { nextMonth = 0; nextYear++; }
+            }
+
+            function getGap() {
+                return window.innerWidth <= 500 ? 10 : 20;
+            }
+
+            function renderAllPages() {
+                calcAdjacentMonths();
+                const prevPage = buildMonthPage(prevYear, prevMonth, false);
+                const currPage = buildMonthPage(currentYear, currentMonth, true);
+                const nextPage = buildMonthPage(nextYear, nextMonth, false);
+
+                calendarTrack.innerHTML = '';
+                calendarTrack.appendChild(prevPage);
+                calendarTrack.appendChild(currPage);
+                calendarTrack.appendChild(nextPage);
+
+                const gap = getGap();
+                const pageWidth = calendarWrapper.clientWidth;
+                const offset = -(pageWidth + gap);
+                calendarTrack.style.transition = 'none';
+                calendarTrack.style.transform = `translateX(${offset}px)`;
+
+                updateStats(currentMonthData, getDaysInMonth(currentYear, currentMonth));
+                updateHeader();
+            }
+
+            function toggleHalf(dayIndex, period) {
+                if (dayIndex < 0 || dayIndex >= currentMonthData.length) return;
+                const data = currentMonthData[dayIndex];
+                if (period === 'morning') data.morning = !data.morning;
+                else if (period === 'evening') data.evening = !data.evening;
+                saveCurrentMonthData();
+                refreshCurrentPage();
+            }
+
+            function toggleFullDay(dayIndex) {
+                if (dayIndex < 0 || dayIndex >= currentMonthData.length) return;
+                const data = currentMonthData[dayIndex];
+                const both = data.morning && data.evening;
+                data.morning = !both;
+                data.evening = !both;
+                saveCurrentMonthData();
+                refreshCurrentPage();
+            }
+
+            function refreshCurrentPage() {
+                const pages = calendarTrack.children;
+                if (pages.length < 2) return;
+                const currPage = pages[1];
+
+                const daysInMonth = getDaysInMonth(currentYear, currentMonth);
+                const firstWeekday = getFirstWeekdayMondayBased(currentYear, currentMonth);
+                const todayDate = new Date();
+                const isTodayMonth = (todayDate.getFullYear() === currentYear && todayDate.getMonth() === currentMonth);
+                const todayDay = todayDate.getDate();
+
+                let cardIdx = firstWeekday;
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const card = currPage.children[cardIdx];
+                    if (!card) { cardIdx++; continue; }
+                    const dayIndex = day - 1;
+                    const d = currentMonthData[dayIndex] || { morning: false, evening: false };
+
+                    const numberDiv = card.querySelector('.day-number');
+                    const halves = card.querySelectorAll('.half');
+                    const morningHalf = halves[0];
+                    const eveningHalf = halves[1];
+
+                    if (d.morning && d.evening) card.classList.add('all-taken');
+                    else card.classList.remove('all-taken');
+
+                    if (isTodayMonth && day === todayDay) card.classList.add('today');
+                    else card.classList.remove('today');
+
+                    numberDiv.textContent = day;
+
+                    morningHalf.className = 'half' + (d.morning ? ' taken' : '');
+                    eveningHalf.className = 'half' + (d.evening ? ' taken' : '');
+                    morningHalf.innerHTML = '<span class="heart-icon">♡</span>';
+                    eveningHalf.innerHTML = '<span class="heart-icon">♡</span>';
+
+                    cardIdx++;
+                }
+
+                updateStats(currentMonthData, daysInMonth);
+            }
+
+            function changeMonthBy(delta) {
+                let newMonth = currentMonth + delta;
+                let newYear = currentYear;
+                if (newMonth < 0) { newMonth = 11; newYear--; }
+                else if (newMonth > 11) { newMonth = 0; newYear++; }
+                currentYear = newYear;
+                currentMonth = newMonth;
+                loadCurrentMonthData();
+                renderAllPages();
+            }
+
+            // ========== 拖拽翻页 ==========
+            let dragState = {
+                active: false,
+                startX: 0,
+                startY: 0,
+                lastX: 0,
+                lastTime: 0,
+                velocity: 0,
+                direction: null,
+                moved: false,
+                baseOffset: 0,
+                currentOffset: 0,
+                pageWidth: 0,
+                gap: 20
+            };
+
+            let animFrame = null;
+
+            function cancelAnim() {
+                if (animFrame) {
+                    cancelAnimationFrame(animFrame);
+                    animFrame = null;
+                }
+            }
+
+            function getCurrentOffset() {
+                const transform = calendarTrack.style.transform;
+                const match = transform.match(/translateX\((-?[\d.]+)px\)/);
+                return match ? parseFloat(match[1]) : 0;
+            }
+
+            function setOffset(px) {
+                calendarTrack.style.transform = `translateX(${px}px)`;
+                dragState.currentOffset = px;
+            }
+
+            function animateTo(targetOffset, duration, callback) {
+                cancelAnim();
+                const startOffset = getCurrentOffset();
+                const distance = targetOffset - startOffset;
+                if (Math.abs(distance) < 1) {
+                    setOffset(targetOffset);
+                    if (callback) callback();
+                    return;
+                }
+                const startTime = performance.now();
+
+                function step(now) {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const ease = 1 - Math.pow(1 - progress, 3);
+                    const current = startOffset + distance * ease;
+                    setOffset(current);
+
+                    if (progress < 1) {
+                        animFrame = requestAnimationFrame(step);
+                    } else {
+                        animFrame = null;
+                        setOffset(targetOffset);
+                        if (callback) callback();
+                    }
+                }
+                animFrame = requestAnimationFrame(step);
+            }
+
+            function settle() {
+                const pageWidth = dragState.pageWidth;
+                const gap = dragState.gap;
+                const currentOffset = getCurrentOffset();
+                const centerOffset = -(pageWidth + gap);
+                const relative = currentOffset - centerOffset;
+                const distance = Math.abs(relative);
+                const speed = Math.abs(dragState.velocity);
+                const threshold = pageWidth * 0.25;
+                const velocityThreshold = 0.4;
+
+                const isRight = relative > 0;
+
+                let shouldFlip = false;
+                if (distance > threshold) shouldFlip = true;
+                if (speed > velocityThreshold && distance > 30) shouldFlip = true;
+
+                if (shouldFlip) {
+                    const targetX = isRight
+                        ? centerOffset + pageWidth + gap
+                        : centerOffset - pageWidth - gap;
+
+                    animateTo(targetX, 220, () => {
+                        changeMonthBy(isRight ? -1 : 1);
+                    });
+                } else {
+                    animateTo(centerOffset, 300);
+                }
+            }
+
+            function setupDragSwitch() {
+                const grid = calendarTrack;
+
+                grid.addEventListener('touchstart', (e) => {
+                    if (e.touches.length !== 1) return;
+                    const touch = e.touches[0];
+                    dragState.active = true;
+                    dragState.startX = touch.clientX;
+                    dragState.startY = touch.clientY;
+                    dragState.lastX = touch.clientX;
+                    dragState.lastTime = performance.now();
+                    dragState.velocity = 0;
+                    dragState.moved = false;
+                    dragState.direction = null;
+                    dragState.pageWidth = calendarWrapper.clientWidth;
+                    dragState.gap = getGap();
+                    dragState.baseOffset = getCurrentOffset();
+                    cancelAnim();
+                    calendarTrack.style.transition = 'none';
+                }, { passive: true });
+
+                grid.addEventListener('touchmove', (e) => {
+                    if (!dragState.active) return;
+                    const touch = e.touches[0];
+                    const deltaX = touch.clientX - dragState.startX;
+                    const deltaY = touch.clientY - dragState.startY;
+
+                    if (!dragState.direction) {
+                        if (Math.abs(deltaX) > 8 || Math.abs(deltaY) > 8) {
+                            dragState.direction = Math.abs(deltaX) > Math.abs(deltaY) ? 'horizontal' : 'vertical';
+                        }
+                    }
+
+                    if (dragState.direction === 'horizontal') {
+                        dragState.moved = true;
+                        e.preventDefault();
+
+                        const now = performance.now();
+                        const dt = now - dragState.lastTime;
+                        if (dt > 0) {
+                            dragState.velocity = (touch.clientX - dragState.lastX) / dt;
+                        }
+                        dragState.lastX = touch.clientX;
+                        dragState.lastTime = now;
+
+                        const centerOffset = -(dragState.pageWidth + dragState.gap);
+                        const rawOffset = dragState.baseOffset + deltaX;
+                        const minOffset = centerOffset - (dragState.pageWidth + dragState.gap) * 1.3;
+                        const maxOffset = centerOffset + (dragState.pageWidth + dragState.gap) * 1.3;
+
+                        let finalOffset = rawOffset;
+                        if (rawOffset > maxOffset) {
+                            finalOffset = maxOffset + (rawOffset - maxOffset) * 0.3;
+                        } else if (rawOffset < minOffset) {
+                            finalOffset = minOffset + (rawOffset - minOffset) * 0.3;
+                        }
+
+                        setOffset(finalOffset);
+                    }
+                }, { passive: false });
+
+                grid.addEventListener('touchend', () => {
+                    if (!dragState.active) return;
+                    dragState.active = false;
+
+                    if (dragState.moved) {
+                        settle();
+                    } else {
+                        const centerOffset = -(dragState.pageWidth + dragState.gap);
+                        animateTo(centerOffset, 250);
+                    }
+                    dragState.moved = false;
+                    dragState.direction = null;
+                });
+
+                grid.addEventListener('mousedown', (e) => {
+                    if (e.button !== 0) return;
+                    dragState.active = true;
+                    dragState.startX = e.clientX;
+                    dragState.startY = e.clientY;
+                    dragState.lastX = e.clientX;
+                    dragState.lastTime = performance.now();
+                    dragState.velocity = 0;
+                    dragState.moved = false;
+                    dragState.direction = null;
+                    dragState.pageWidth = calendarWrapper.clientWidth;
+                    dragState.gap = getGap();
+                    dragState.baseOffset = getCurrentOffset();
+                    cancelAnim();
+                    calendarTrack.style.transition = 'none';
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!dragState.active) return;
+                    const deltaX = e.clientX - dragState.startX;
+                    const deltaY = e.clientY - dragState.startY;
+
+                    if (!dragState.direction) {
+                        if (Math.abs(deltaX) > 8 || Math.abs(deltaY) > 8) {
+                            dragState.direction = Math.abs(deltaX) > Math.abs(deltaY) ? 'horizontal' : 'vertical';
+                        }
+                    }
+
+                    if (dragState.direction === 'horizontal') {
+                        dragState.moved = true;
+
+                        const now = performance.now();
+                        const dt = now - dragState.lastTime;
+                        if (dt > 0) {
+                            dragState.velocity = (e.clientX - dragState.lastX) / dt;
+                        }
+                        dragState.lastX = e.clientX;
+                        dragState.lastTime = now;
+
+                        const centerOffset = -(dragState.pageWidth + dragState.gap);
+                        const rawOffset = dragState.baseOffset + deltaX;
+                        const minOffset = centerOffset - (dragState.pageWidth + dragState.gap) * 1.3;
+                        const maxOffset = centerOffset + (dragState.pageWidth + dragState.gap) * 1.3;
+
+                        let finalOffset = rawOffset;
+                        if (rawOffset > maxOffset) {
+                            finalOffset = maxOffset + (rawOffset - maxOffset) * 0.3;
+                        } else if (rawOffset < minOffset) {
+                            finalOffset = minOffset + (rawOffset - minOffset) * 0.3;
+                        }
+
+                        setOffset(finalOffset);
+                    }
+                });
+
+                window.addEventListener('mouseup', () => {
+                    if (!dragState.active) return;
+                    dragState.active = false;
+
+                    if (dragState.moved) {
+                        settle();
+                    } else {
+                        const centerOffset = -(dragState.pageWidth + dragState.gap);
+                        animateTo(centerOffset, 250);
+                    }
+                    dragState.moved = false;
+                    dragState.direction = null;
+                });
+
+                grid.addEventListener('click', (e) => {
+                    if (dragState.moved) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        dragState.moved = false;
+                    }
+                }, true);
+            }
+
+            // ========== 漂浮月份字符系统 ==========
+            let floatAnimFrame = null;
+            let floatActive = false;
+            let draggingChar = null;
+            let dragCharOffset = { x: 0, y: 0 };
+            let charStates = new Map();
+            let gyroGravity = { x: 0, y: 1 };
+            let gyroActive = false;
+            let outsideClickHandler = null;
+
+            function initGyro() {
+                if (window.DeviceOrientationEvent) {
+                    window.addEventListener('deviceorientation', (e) => {
+                        if (e.beta === null || e.gamma === null) return;
+                        gyroActive = true;
+                        const gammaRad = (e.gamma || 0) * Math.PI / 180;
+                        const betaRad = (e.beta || 0) * Math.PI / 180;
+                        gyroGravity.x = Math.sin(gammaRad) * 0.8;
+                        gyroGravity.y = Math.cos(betaRad) * 0.8 + 0.2;
+                        const len = Math.hypot(gyroGravity.x, gyroGravity.y);
+                        if (len > 0) {
+                            gyroGravity.x /= len;
+                            gyroGravity.y /= len;
+                        }
+                    }, { passive: true });
+                }
+            }
+
+            function getDesktopZones() {
+                const wrapperRect = calendarWrapper.getBoundingClientRect();
+                const containerRect = document.querySelector('.app-container').getBoundingClientRect();
+                const viewportW = window.innerWidth;
+                const viewportH = window.innerHeight;
+
+                const calendarLeft = Math.min(wrapperRect.left, containerRect.left);
+                const calendarRight = Math.max(wrapperRect.right, containerRect.right);
+                const calendarTop = Math.min(wrapperRect.top, containerRect.top);
+                const calendarBottom = Math.max(wrapperRect.bottom, containerRect.bottom);
+
+                const leftZone = {
+                    x1: 20,
+                    x2: Math.max(20, calendarLeft - 40),
+                    y1: Math.max(20, calendarTop - 40),
+                    y2: Math.min(viewportH - 20, calendarBottom + 40)
+                };
+                const rightZone = {
+                    x1: Math.min(viewportW - 20, calendarRight + 40),
+                    x2: viewportW - 20,
+                    y1: Math.max(20, calendarTop - 40),
+                    y2: Math.min(viewportH - 20, calendarBottom + 40)
+                };
+
+                const zones = [];
+                if (leftZone.x2 - leftZone.x1 > 60) zones.push({ type: 'left', ...leftZone });
+                if (rightZone.x2 - rightZone.x1 > 60) zones.push({ type: 'right', ...rightZone });
+
+                if (zones.length === 0) {
+                    const topZone = {
+                        x1: 20,
+                        x2: viewportW - 20,
+                        y1: 20,
+                        y2: Math.max(20, calendarTop - 30)
+                    };
+                    const bottomZone = {
+                        x1: 20,
+                        x2: viewportW - 20,
+                        y1: Math.min(viewportH - 20, calendarBottom + 30),
+                        y2: viewportH - 20
+                    };
+                    if (topZone.y2 - topZone.y1 > 40) zones.push({ type: 'top', ...topZone });
+                    if (bottomZone.y2 - bottomZone.y1 > 40) zones.push({ type: 'bottom', ...bottomZone });
+                }
+
+                return zones;
+            }
+
+            function getMobileZones() {
+                const wrapperRect = calendarWrapper.getBoundingClientRect();
+                const containerRect = document.querySelector('.app-container').getBoundingClientRect();
+                const safe = 18;
+
+                const x1 = Math.max(containerRect.left + safe, wrapperRect.left + safe);
+                const x2 = Math.min(containerRect.right - safe, wrapperRect.right - safe);
+                const y1 = Math.max(containerRect.top + safe, wrapperRect.top + safe);
+                const y2 = Math.min(containerRect.bottom - safe, wrapperRect.bottom - safe);
+
+                if (x2 - x1 < 40 || y2 - y1 < 40) {
+                    return [{
+                        type: 'mobile',
+                        x1: wrapperRect.left + 10,
+                        x2: wrapperRect.right - 10,
+                        y1: wrapperRect.top + 10,
+                        y2: wrapperRect.bottom - 10
+                    }];
+                }
+
+                return [{ type: 'mobile', x1, x2, y1, y2 }];
+            }
+
+            function getZones() {
+                const isMobile = window.innerWidth <= 500;
+                return isMobile ? getMobileZones() : getDesktopZones();
+            }
+
+            function findPositions(count) {
+                const zones = getZones();
+                const positions = [];
+                const minDist = 90;
+                const isMobile = window.innerWidth <= 500;
+
+                if (zones.length === 0) {
+                    for (let i = 0; i < count; i++) {
+                        positions.push({
+                            x: 40 + (i % 4) * 80,
+                            y: 40 + Math.floor(i / 4) * 80
+                        });
+                    }
+                    return positions;
+                }
+
+                function placeInZone(zone, n) {
+                    if (!zone || n <= 0) return [];
+                    const pts = [];
+                    const zoneW = zone.x2 - zone.x1;
+                    const zoneH = zone.y2 - zone.y1;
+                    if (zoneW <= 0 || zoneH <= 0) return pts;
+
+                    let attempts = 0;
+                    while (pts.length < n && attempts < 600) {
+                        attempts++;
+                        const x = zone.x1 + Math.random() * zoneW;
+                        const y = zone.y1 + Math.random() * zoneH;
+
+                        let tooClose = false;
+                        for (const p of pts) {
+                            if (Math.hypot(p.x - x, p.y - y) < minDist) {
+                                tooClose = true;
+                                break;
+                            }
+                        }
+                        if (!tooClose) pts.push({ x, y });
+                    }
+
+                    while (pts.length < n) {
+                        const x = zone.x1 + Math.random() * zoneW;
+                        const y = zone.y1 + Math.random() * zoneH;
+                        pts.push({ x, y });
+                    }
+
+                    return pts;
+                }
+
+                if (isMobile) {
+                    const zone = zones[0];
+                    const pts = placeInZone(zone, count);
+                    positions.push(...pts);
+                } else {
+                    const leftZone = zones.find(z => z.type === 'left');
+                    const rightZone = zones.find(z => z.type === 'right');
+                    const leftCount = leftZone ? Math.min(5, count) : 0;
+                    const rightCount = rightZone ? Math.min(6, count - leftCount) : 0;
+
+                    const leftPts = placeInZone(leftZone, leftCount);
+                    const rightPts = placeInZone(rightZone, rightCount);
+                    positions.push(...leftPts, ...rightPts);
+
+                    if (positions.length < count) {
+                        const remaining = count - positions.length;
+                        const otherZones = zones.filter(z => z.type !== 'left' && z.type !== 'right');
+                        if (otherZones.length > 0) {
+                            const extra = placeInZone(otherZones[0], remaining);
+                            positions.push(...extra);
+                        } else {
+                            while (positions.length < count) {
+                                positions.push({
+                                    x: 60 + Math.random() * (window.innerWidth - 120),
+                                    y: 60 + Math.random() * (window.innerHeight - 120)
+                                });
+                            }
+                        }
+                    }
+                }
+
+                return positions;
+            }
+
+            function removeOutsideClickHandler() {
+                if (outsideClickHandler) {
+                    document.removeEventListener('click', outsideClickHandler);
+                    outsideClickHandler = null;
+                }
+            }
+
+            function addOutsideClickHandler() {
+                removeOutsideClickHandler();
+                outsideClickHandler = (e) => {
+                    if (!floatActive) return;
+                    if (e.target.closest('.float-month')) return;
+                    if (e.target.closest('.month-nav')) return;
+                    dismissFloatingChars();
+                };
+                setTimeout(() => {
+                    if (floatActive) {
+                        document.addEventListener('click', outsideClickHandler);
+                    }
+                }, 200);
+            }
+
+            function spawnFloatingChars() {
+                clearFloatingChars();
+
+                const monthRect = monthRomanEl.getBoundingClientRect();
+                const monthCenterX = monthRect.left + monthRect.width / 2;
+                const monthCenterY = monthRect.top + monthRect.height / 2;
+
+                const otherMonths = [];
+                for (let i = 0; i < 12; i++) {
+                    if (i !== currentMonth) otherMonths.push(i);
+                }
+
+                const positions = findPositions(otherMonths.length);
+
+                floatActive = true;
+
+                otherMonths.forEach((monthIdx, i) => {
+                    const el = document.createElement('div');
+                    el.className = 'float-month';
+                    el.textContent = romanMonths[monthIdx];
+                    el.dataset.month = monthIdx;
+
+                    const startX = monthCenterX - 20 + (Math.random() - 0.5) * 30;
+                    const startY = monthCenterY - 10 + (Math.random() - 0.5) * 30;
+
+                    el.style.left = startX + 'px';
+                    el.style.top = startY + 'px';
+                    el.style.opacity = '0';
+                    el.style.transform = 'translate(-50%, -50%) scale(0.3)';
+
+                    document.body.appendChild(el);
+
+                    const target = positions[i] || { x: startX, y: startY };
+
+                    const state = {
+                        x: startX,
+                        y: startY,
+                        targetX: target.x,
+                        targetY: target.y,
+                        vx: (Math.random() - 0.5) * 0.1,
+                        vy: (Math.random() - 0.5) * 0.1,
+                        baseSpeed: 0.05 + Math.random() * 0.075,
+                        hovered: false,
+                        el: el,
+                        monthIdx: monthIdx
+                    };
+
+                    charStates.set(el, state);
+
+                    const startTime = performance.now();
+                    const duration = 600 + i * 40;
+
+                    function flyToTarget(now) {
+                        const elapsed = now - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const ease = 1 - Math.pow(1 - progress, 3);
+
+                        state.x = startX + (target.x - startX) * ease;
+                        state.y = startY + (target.y - startY) * ease;
+
+                        el.style.left = state.x + 'px';
+                        el.style.top = state.y + 'px';
+                        el.style.opacity = Math.min(progress * 2, 0.85);
+                        const scale = 0.3 + ease * 0.9;
+                        el.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(flyToTarget);
+                        } else {
+                            el.style.opacity = '0.85';
+                            el.style.transform = 'translate(-50%, -50%) scale(1.2)';
+                            setTimeout(() => {
+                                if (el.parentNode) {
+                                    el.style.transform = 'translate(-50%, -50%) scale(1)';
+                                }
+                            }, 100);
+                        }
+                    }
+
+                    requestAnimationFrame(flyToTarget);
+
+                    el.addEventListener('mouseenter', () => {
+                        if (draggingChar === el) return;
+                        state.hovered = true;
+                        el.classList.add('hovered');
+                    });
+
+                    el.addEventListener('mouseleave', () => {
+                        state.hovered = false;
+                        el.classList.remove('hovered');
+                    });
+
+                    el.addEventListener('mousedown', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        startDragChar(el, e.clientX, e.clientY);
+                    });
+
+                    el.addEventListener('touchstart', (e) => {
+                        if (e.touches.length !== 1) return;
+                        e.preventDefault();
+                        e.stopPropagation();
+                        startDragChar(el, e.touches[0].clientX, e.touches[0].clientY);
+                    }, { passive: false });
+                });
+
+                startFloatAnimation();
+                addOutsideClickHandler();
+            }
+
+            function startFloatAnimation() {
+                if (floatAnimFrame) cancelAnimationFrame(floatAnimFrame);
+
+                function animate() {
+                    if (!floatActive) return;
+
+                    const isMobile = window.innerWidth <= 500;
+                    const zones = getZones();
+                    const bounds = zones.length > 0 ? zones[0] : null;
+
+                    charStates.forEach((state, el) => {
+                        if (!el.parentNode) return;
+                        if (draggingChar === el) return;
+
+                        if (!state.hovered) {
+                            state.vx += (Math.random() - 0.5) * 0.01;
+                            state.vy += (Math.random() - 0.5) * 0.01;
+
+                            const speed = Math.hypot(state.vx, state.vy);
+                            const maxSpeed = state.baseSpeed;
+                            if (speed > maxSpeed) {
+                                state.vx = (state.vx / speed) * maxSpeed;
+                                state.vy = (state.vy / speed) * maxSpeed;
+                            }
+
+                            state.x += state.vx;
+                            state.y += state.vy;
+
+                            if (isMobile && bounds) {
+                                if (state.x < bounds.x1 + 10) { state.x = bounds.x1 + 10; state.vx = Math.abs(state.vx); }
+                                if (state.x > bounds.x2 - 10) { state.x = bounds.x2 - 10; state.vx = -Math.abs(state.vx); }
+                                if (state.y < bounds.y1 + 10) { state.y = bounds.y1 + 10; state.vy = Math.abs(state.vy); }
+                                if (state.y > bounds.y2 - 10) { state.y = bounds.y2 - 10; state.vy = -Math.abs(state.vy); }
+                            } else {
+                                const margin = 30;
+                                if (state.x < margin) { state.x = margin; state.vx = Math.abs(state.vx); }
+                                if (state.x > window.innerWidth - margin) { state.x = window.innerWidth - margin; state.vx = -Math.abs(state.vx); }
+                                if (state.y < margin) { state.y = margin; state.vy = Math.abs(state.vy); }
+                                if (state.y > window.innerHeight - margin) { state.y = window.innerHeight - margin; state.vy = -Math.abs(state.vy); }
+                            }
+
+                            el.style.left = state.x + 'px';
+                            el.style.top = state.y + 'px';
+                        } else {
+                            const jitterX = Math.sin(performance.now() * 0.01) * 1.2;
+                            const jitterY = Math.cos(performance.now() * 0.008) * 1.2;
+                            el.style.left = (state.x + jitterX) + 'px';
+                            el.style.top = (state.y + jitterY) + 'px';
+                        }
+                    });
+
+                    floatAnimFrame = requestAnimationFrame(animate);
+                }
+
+                animate();
+            }
+
+            function startDragChar(el, clientX, clientY) {
+                if (!charStates.has(el)) return;
+
+                draggingChar = el;
+                el.classList.add('dragging');
+                el.classList.remove('hovered');
+
+                const state = charStates.get(el);
+                state.hovered = false;
+
+                const rect = el.getBoundingClientRect();
+                dragCharOffset.x = clientX - (rect.left + rect.width / 2);
+                dragCharOffset.y = clientY - (rect.top + rect.height / 2);
+
+                el.style.zIndex = '200';
+
+                function moveHandler(e) {
+                    const x = (e.clientX || e.touches[0].clientX) - dragCharOffset.x;
+                    const y = (e.clientY || e.touches[0].clientY) - dragCharOffset.y;
+
+                    state.x = x;
+                    state.y = y;
+                    el.style.left = x + 'px';
+                    el.style.top = y + 'px';
+                }
+
+                function upHandler(e) {
+                    const monthRect = monthRomanEl.getBoundingClientRect();
+                    const dropX = e.clientX || e.changedTouches[0].clientX;
+                    const dropY = e.clientY || e.changedTouches[0].clientY;
+
+                    const isOverMonth = dropX > monthRect.left - 60 && dropX < monthRect.right + 60 &&
+                                        dropY > monthRect.top - 40 && dropY < monthRect.bottom + 40;
+
+                    if (isOverMonth) {
+                        installMonth(el, parseInt(el.dataset.month, 10));
+                    } else {
+                        el.style.zIndex = '100';
+                        el.classList.remove('dragging');
+                        draggingChar = null;
+                    }
+
+                    document.removeEventListener('mousemove', moveHandler);
+                    document.removeEventListener('mouseup', upHandler);
+                    document.removeEventListener('touchmove', moveHandler);
+                    document.removeEventListener('touchend', upHandler);
+                }
+
+                document.addEventListener('mousemove', moveHandler);
+                document.addEventListener('mouseup', upHandler);
+                document.addEventListener('touchmove', moveHandler, { passive: false });
+                document.addEventListener('touchend', upHandler);
+            }
+
+            function spawnParticles(el, callback) {
+                const rect = el.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const particleCount = 24;
+                const particles = [];
+
+                const computedStyle = window.getComputedStyle(el);
+                const color = computedStyle.color;
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    const size = 1.5 + Math.random() * 2.5;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.background = color;
+                    particle.style.left = (centerX - size / 2) + 'px';
+                    particle.style.top = (centerY - size / 2) + 'px';
+                    particle.style.opacity = '0.8';
+                    document.body.appendChild(particle);
+
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 0.5 + Math.random() * 1.5;
+                    const pState = {
+                        x: centerX,
+                        y: centerY,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed - 1,
+                        life: 1,
+                        el: particle
+                    };
+                    particles.push(pState);
+                }
+
+                el.style.opacity = '0';
+                el.style.transform = 'translate(-50%, -50%) scale(0.3)';
+
+                const startTime = performance.now();
+                const duration = 1500;
+
+                function animateParticles(now) {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    particles.forEach(p => {
+                        if (p.life <= 0) return;
+
+                        const gx = gyroActive ? gyroGravity.x : 0;
+                        const gy = gyroActive ? gyroGravity.y : 1;
+
+                        p.vx += gx * 0.15 * 0.8;
+                        p.vy += gy * 0.15 * 0.8;
+
+                        p.vx *= 0.98;
+                        p.vy *= 0.98;
+
+                        p.x += p.vx;
+                        p.y += p.vy;
+
+                        p.life = Math.max(0, 1 - progress);
+                        p.el.style.opacity = p.life * 0.8;
+                        p.el.style.left = (p.x - parseFloat(p.el.style.width) / 2) + 'px';
+                        p.el.style.top = (p.y - parseFloat(p.el.style.height) / 2) + 'px';
+
+                        if (p.life <= 0 && p.el.parentNode) {
+                            p.el.remove();
+                        }
+                    });
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animateParticles);
+                    } else {
+                        particles.forEach(p => {
+                            if (p.el.parentNode) p.el.remove();
+                        });
+                        if (callback) callback();
+                    }
+                }
+
+                requestAnimationFrame(animateParticles);
+            }
+
+            function installMonth(el, monthIdx) {
+                if (monthIdx === currentMonth) return;
+
+                draggingChar = null;
+                el.classList.remove('dragging');
+                el.style.zIndex = '100';
+
+                monthRomanEl.classList.add('fade-out');
+
+                setTimeout(() => {
+                    currentMonth = monthIdx;
+                    loadCurrentMonthData();
+                    renderAllPages();
+
+                    monthRomanEl.classList.remove('fade-out');
+                    monthRomanEl.classList.add('fade-in');
+
+                    setTimeout(() => {
+                        monthRomanEl.classList.remove('fade-in');
+                    }, 300);
+
+                    el.style.opacity = '0';
+                    el.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                    setTimeout(() => el.remove(), 400);
+
+                    dismissFloatingCharsWithParticles();
+                }, 200);
+            }
+
+            function dismissFloatingCharsWithParticles() {
+                if (!floatActive) return;
+                floatActive = false;
+
+                if (floatAnimFrame) {
+                    cancelAnimationFrame(floatAnimFrame);
+                    floatAnimFrame = null;
+                }
+                removeOutsideClickHandler();
+
+                const chars = Array.from(charStates.keys());
+                let pending = chars.length;
+
+                if (pending === 0) {
+                    charStates.clear();
+                    draggingChar = null;
+                    return;
+                }
+
+                chars.forEach((el, i) => {
+                    if (!el.parentNode) {
+                        pending--;
+                        return;
+                    }
+                    setTimeout(() => {
+                        spawnParticles(el, () => {
+                            if (el.parentNode) el.remove();
+                            pending--;
+                            if (pending === 0) {
+                                charStates.clear();
+                                draggingChar = null;
+                            }
+                        });
+                    }, i * 30);
+                });
+
+                setTimeout(() => {
+                    charStates.forEach((state, el) => {
+                        if (el.parentNode) el.remove();
+                    });
+                    charStates.clear();
+                    draggingChar = null;
+                }, 3000);
+            }
+
+            function dismissFloatingChars() {
+                if (!floatActive) return;
+                floatActive = false;
+
+                if (floatAnimFrame) {
+                    cancelAnimationFrame(floatAnimFrame);
+                    floatAnimFrame = null;
+                }
+                removeOutsideClickHandler();
+
+                const chars = Array.from(charStates.keys());
+                chars.forEach((el, i) => {
+                    if (!el.parentNode) return;
+                    setTimeout(() => {
+                        el.classList.add('disappearing');
+                        setTimeout(() => {
+                            if (el.parentNode) el.remove();
+                        }, 400);
+                    }, i * 30);
+                });
+
+                charStates.clear();
+                draggingChar = null;
+            }
+
+            function clearFloatingChars() {
+                if (floatAnimFrame) {
+                    cancelAnimationFrame(floatAnimFrame);
+                    floatAnimFrame = null;
+                }
+                removeOutsideClickHandler();
+
+                charStates.forEach((state, el) => {
+                    if (el.parentNode) el.remove();
+                });
+                charStates.clear();
+                draggingChar = null;
+                floatActive = false;
+            }
+
+            function setupMonthToggle() {
+                monthNav.addEventListener('click', (e) => {
+                    e.stopPropagation();
+
+                    if (floatActive) {
+                        dismissFloatingChars();
+                        return;
+                    }
+
+                    setTimeout(() => {
+                        spawnFloatingChars();
+                    }, 80);
+                });
+            }
+
+            function setupEventListeners() {
+                calendarTrack.addEventListener('click', (e) => {
+                    const numberEl = e.target.closest('.day-number[data-toggle-all]');
+                    if (numberEl) {
+                        const dayIndex = parseInt(numberEl.dataset.day, 10);
+                        if (!isNaN(dayIndex)) toggleFullDay(dayIndex);
+                        return;
+                    }
+
+                    const half = e.target.closest('.half');
+                    if (!half) return;
+
+                    const card = half.closest('.day-card');
+                    if (!card || card.classList.contains('empty')) return;
+
+                    const dayIndex = parseInt(half.dataset.day, 10);
+                    const period = half.dataset.period;
+                    if (!isNaN(dayIndex) && (period === 'morning' || period === 'evening')) {
+                        toggleHalf(dayIndex, period);
+                    }
+                });
+
+                setupDragSwitch();
+                setupMonthToggle();
+
+                window.addEventListener('storage', (e) => {
+                    const currentKey = getStorageKey(currentYear, currentMonth);
+                    if (e.key === currentKey || e.key === null) {
+                        loadCurrentMonthData();
+                        refreshCurrentPage();
+                    }
+                });
+
+                window.addEventListener('resize', () => {
+                    const pageWidth = calendarWrapper.clientWidth;
+                    const gap = getGap();
+                    const centerOffset = -(pageWidth + gap);
+                    cancelAnim();
+                    calendarTrack.style.transition = 'none';
+                    setOffset(centerOffset);
+                    dragState.pageWidth = pageWidth;
+                    dragState.gap = gap;
+                });
+
+                initGyro();
+            }
+
+            function init() {
+                const now = new Date();
+                currentYear = now.getFullYear();
+                currentMonth = now.getMonth();
+
+                loadCurrentMonthData();
+                renderAllPages();
+                setupEventListeners();
+                dragState.pageWidth = calendarWrapper.clientWidth;
+                dragState.gap = getGap();
+            }
+
+            init();
+        })();
+    </script>
+</body>
+</html>
